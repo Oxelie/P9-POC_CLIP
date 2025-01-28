@@ -77,6 +77,7 @@ if article_index is not None:
     selected_article = data[data['product_name'] == article_index].iloc[0]  
     image_path = selected_article['reshaped_image_path']
     description = selected_article['description']
+    true_category = selected_article['categ_0']
     # Afficher l'image avec une taille réduite
     image = Image.open(image_path)
     st.write(f"**Image de l'article sélectionné:**")
@@ -86,16 +87,16 @@ if article_index is not None:
 
     # Bouton pour faire la prédiction
     st.write(" ")
-    st.write('<p style="font-size:21px; font-weight:bold;">Approche Multimodale avec CLIPs</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:21px; font-weight:bold;">Approche Multimodale avec CLIP</p>', unsafe_allow_html=True)
     st.write('<p style="font-size:19px; font-weight:bold;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
     if st.button("**Prédiction**"):
         prediction, duration = predict(image_path, description)
         pred_category = label_to_category[prediction]
-        st.write(f"**Catégorie prédite**")
-        st.write(f"'{pred_category}'")
+        st.write(f"**Catégorie prédite : '{pred_category}'**")
+        st.write(f"Catégorie réelle :'{true_category}'")
         minutes, seconds = divmod(duration, 60)
         duration_str = f"{int(minutes)} min {int(seconds)} sec"
-        st.write(f"Temps de calcul de la prédiction : {duration_str}")
+        st.write(f'<p style="font-size:15px; font-style:italic;">Temps de calcul de la prédiction : {duration_str}</p>', unsafe_allow_html=True)
         
 
 # # Prétraiter les images et les descriptions

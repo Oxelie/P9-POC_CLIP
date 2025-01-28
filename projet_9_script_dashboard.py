@@ -79,17 +79,21 @@ if article_index is not None:
     description = selected_article['description']
     # Afficher l'image avec une taille réduite
     image = Image.open(image_path)
+    st.write(f"Image de l'article sélectionné:")
     st.image(image, caption="Image sélectionnée", width=300)  
-    st.write(f"Description : \n'{description}'")
+    st.write(f"Description de l'article sélectionné:")
+    st.write(f"{description}")
 
     # Bouton pour faire la prédiction
+    st.write(f"Prédire la catégorie avec l'image et la description de l'article en utilisant CLIP")
     if st.button("Prédire la catégorie"):
         prediction, duration = predict(image_path, description)
         pred_category = label_to_category[prediction]
-        st.write(f"Catégorie prédite :  \n'{pred_category}'")
+        st.write(f"Catégorie prédite")
+        st.write(f"{pred_category}")
         minutes, seconds = divmod(duration, 60)
         duration_str = f"{int(minutes)} min {int(seconds)} sec"
-        st.write(f"Temps de calcul : {duration_str}")
+        st.write(f"Temps de calcul de la prédiction : {duration_str}")
         
 
 # # Prétraiter les images et les descriptions

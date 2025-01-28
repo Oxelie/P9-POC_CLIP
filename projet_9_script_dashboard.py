@@ -101,7 +101,7 @@ if article_index is not None:
     # Bouton pour faire la prédiction
     st.write(" ")
     st.write('<p style="font-size:22px; font-weight:bold;">Approche Multimodale avec CLIP</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:19px;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:18px;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
     if st.button("**Prédiction**"):
         prediction, duration = predict(image_path, description)
         pred_category = label_to_category[prediction]

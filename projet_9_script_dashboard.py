@@ -85,13 +85,14 @@ if article_index is not None:
     st.write(f"{description}")
 
     # Bouton pour faire la prédiction
-    st.write(f"**Prédire la catégorie avec l'image et la description de l'article en utilisant CLIP**")
-    st.write('<p style="font-size:20px; font-weight:bold;">Prédire la catégorie avec l\'image et la description de l\'article en utilisant CLIP</p>', unsafe_allow_html=True)
-    if st.button("**Prédire la catégorie**"):
+    st.write(" ")
+    st.write('<p style="font-size:21px; font-weight:bold;">Approche Multimodale avec CLIPs</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:19px; font-weight:bold;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
+    if st.button("**Prédiction**"):
         prediction, duration = predict(image_path, description)
         pred_category = label_to_category[prediction]
         st.write(f"**Catégorie prédite**")
-        st.write(f"{pred_category}")
+        st.write(f"'{pred_category}'")
         minutes, seconds = divmod(duration, 60)
         duration_str = f"{int(minutes)} min {int(seconds)} sec"
         st.write(f"Temps de calcul de la prédiction : {duration_str}")

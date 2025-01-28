@@ -27,10 +27,10 @@ max_length = 77
 model.context_length = max_length
 
 # Charger les données
-data_final = pd.read_csv("path_to_your_data.csv")  # CRÉER UN FICHIER CSV AVEC UNE PETITE SELCTION DE DONNÉES PAR CATÉGORIE
+data_final = pd.read_csv("streamlit_dataset.csv")  
 
 # Charger le classificateur entraîné
-classifier = joblib.load("path_to_your_trained_model.pkl")  # Remplacez par le chemin de votre modèle enregistré
+classifier = joblib.load("clip_classif_model_a.pkl")  
 
 # Fonction pour faire des prédictions
 def predict(image_path, description):
@@ -55,12 +55,12 @@ def predict(image_path, description):
 st.title("Dashboard de Prédiction CLIP")
 
 # Sélection de l'article
-article_options = data_final['title'].tolist()  # Remplacez 'title' par la colonne appropriée du nom de l'article sinon index ?
+article_options = data_final['product_name'].tolist()  
 article_index = st.selectbox("Sélectionnez un article", options=article_options)
 
 # Afficher l'image et la description correspondantes
 if article_index is not None:
-    selected_article = data_final[data_final['title'] == article_index].iloc[0]  # Remplacez 'title' par la colonne appropriée
+    selected_article = data_final[data_final['product_name'] == article_index].iloc[0]  
     image_path = selected_article['reshaped_image_path']
     description = selected_article['description']
     st.image(Image.open(image_path), caption="Image sélectionnée")

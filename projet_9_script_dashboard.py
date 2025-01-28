@@ -9,7 +9,7 @@ from PIL import Image
 from sklearn.linear_model import LogisticRegression
 import streamlit as st
 import joblib
-from streamlit_jupyter import st_jupyter
+import streamlit.components.v1 as components
 
 # Configuration de la page
 st.set_page_config(page_title="Dashboard de Classification Mutlimodale avec CLIP", layout="wide")
@@ -112,9 +112,11 @@ if article_index is not None:
         duration_str = f"{int(minutes)} min {int(seconds)} sec"
         st.write(f'<p style="font-size:15px; font-style:italic;">Temps de calcul de la prédiction : {duration_str}</p>', unsafe_allow_html=True)
         
-# Afficher le contenu du notebook
+# Afficher le contenu du notebook en HTML
 st.write("## Notebook")
-st_jupyter("projet_9_dashboard.ipynb")
+with open("projet_9_dashboard.html", "r", encoding="utf-8") as f:
+    html_content = f.read()
+components.html(html_content, height=800, scrolling=True)
 
 
 

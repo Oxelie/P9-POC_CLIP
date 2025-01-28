@@ -72,13 +72,13 @@ if article_index is not None:
     image = Image.open(image_path)
     # Afficher l'image avec une taille réduite
     st.image(image, caption="Image sélectionnée", width=300)  
-    st.write(f"Description : n\'{description}'")
+    st.write(f"Description : \n'{description}'")
 
     # Bouton pour faire la prédiction
     if st.button("Prédire la catégorie"):
         prediction, duration = predict(image_path, description)
         pred_category = label_to_category[prediction]
-        st.write(f"Catégorie prédite :  n\'{pred_category}'")
+        st.write(f"Catégorie prédite :  \n'{pred_category}'")
         minutes, seconds = divmod(duration, 60)
         duration_str = f"{int(minutes)} min {int(seconds)} sec"
         st.write(f"Temps de calcul : {duration_str}")

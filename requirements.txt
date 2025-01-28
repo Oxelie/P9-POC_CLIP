@@ -3,6 +3,6 @@ pandas
 torch            
 clip @ git+https://github.com/openai/CLIP.git
 Pillow
-scikit-learn==1.2.2
+scikit-learn
 streamlit
 joblib

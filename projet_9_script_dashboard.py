@@ -70,7 +70,7 @@ st.title("Dashboard de Classification Mutlimodale avec CLIP")
 
 # Sélection de l'article
 article_options = data['product_name'].tolist()  
-article_index = st.selectbox("Sélectionnez un article", options=article_options)
+article_index = st.selectbox("**Sélectionnez un article**", options=article_options)
 
 # Afficher l'image et la description correspondantes
 if article_index is not None:
@@ -79,17 +79,18 @@ if article_index is not None:
     description = selected_article['description']
     # Afficher l'image avec une taille réduite
     image = Image.open(image_path)
-    st.write(f"Image de l'article sélectionné:")
+    st.write(f"**Image de l'article sélectionné:**")
     st.image(image, caption="Image sélectionnée", width=300)  
-    st.write(f"Description de l'article sélectionné:")
+    st.write(f"**Description de l'article sélectionné:**")
     st.write(f"{description}")
 
     # Bouton pour faire la prédiction
     st.write(f"**Prédire la catégorie avec l'image et la description de l'article en utilisant CLIP**")
-    if st.button("Prédire la catégorie"):
+    st.write('<p style="font-size:20px; font-weight:bold;">Prédire la catégorie avec l'image et la description de l'article en utilisant CLIP</p>', unsafe_allow_html=True)
+    if st.button("**Prédire la catégorie**"):
         prediction, duration = predict(image_path, description)
         pred_category = label_to_category[prediction]
-        st.write(f"Catégorie prédite")
+        st.write(f"**Catégorie prédite**")
         st.write(f"{pred_category}")
         minutes, seconds = divmod(duration, 60)
         duration_str = f"{int(minutes)} min {int(seconds)} sec"

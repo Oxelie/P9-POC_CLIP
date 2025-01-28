@@ -94,7 +94,7 @@ if article_index is not None:
     # Afficher l'image avec une taille réduite
     image = Image.open(image_path)
     st.write(f"**Image de l'article sélectionné:**")
-    st.image(image, caption="Image sélectionnée", width=300)  
+    st.image(image, width=300)  
     st.write(f"**Description de l'article sélectionné:**")
     st.write(f"{description}")
 

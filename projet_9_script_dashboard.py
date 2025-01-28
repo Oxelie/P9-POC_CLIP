@@ -26,8 +26,12 @@ model, preprocess = clip.load("ViT-B/32", device=device)
 max_length = 77
 model.context_length = max_length
 
-# Charger les données
-data = pd.read_csv("streamlit_dataset.csv")  
+@st.cache_data
+def load_data():
+    # Charger les données
+    return pd.read_csv("streamlit_dataset.csv")
+
+data = load_data()
 
 # dictionnaire de correspondance entre les catégories et les labels
 label_to_category= {}
@@ -38,6 +42,7 @@ for label in data.label.values :
 # Charger le classificateur entraîné
 classifier = joblib.load("clip_classif_model_a.pkl")  
 
+@st.cache_data
 # Fonction pour faire des prédictions
 def predict(image_path, description):
     start_time = time.time()
@@ -57,8 +62,11 @@ def predict(image_path, description):
     duration = end_time - start_time
     return prediction[0], duration
 
+# Configuration de la page
+st.set_page_config(page_title="Dashboard de Classification Mutlimodale avec CLIP", layout="wide")
+
 # Interface utilisateur avec Streamlit
-st.title("Dashboard de Prédiction CLIP")
+st.title("Dashboard de Classification Mutlimodale avec CLIP")
 
 # Sélection de l'article
 article_options = data['product_name'].tolist()  
@@ -69,8 +77,8 @@ if article_index is not None:
     selected_article = data[data['product_name'] == article_index].iloc[0]  
     image_path = selected_article['reshaped_image_path']
     description = selected_article['description']
-    image = Image.open(image_path)
     # Afficher l'image avec une taille réduite
+    image = Image.open(image_path)
     st.image(image, caption="Image sélectionnée", width=300)  
     st.write(f"Description : \n'{description}'")
 

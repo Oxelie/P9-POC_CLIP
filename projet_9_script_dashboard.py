@@ -67,6 +67,19 @@ def predict(image_path, description):
 
 # Interface utilisateur avec Streamlit
 st.title("Dashboard de Classification Mutlimodale avec CLIP")
+# Injecter du CSS pour modifier la police de la selectbox
+st.markdown(
+    """
+    <style>
+    .stSelectbox label {
+        font-size: 20px;
+        font-weight: bold;
+        color: #4CAF50;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Sélection de l'article
 article_options = data['product_name'].tolist()  

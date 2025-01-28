@@ -113,7 +113,10 @@ if article_index is not None:
         st.write(f'<p style="font-size:15px; font-style:italic;">Temps de calcul de la prédiction : {duration_str}</p>', unsafe_allow_html=True)
         
 # Afficher le contenu du notebook en HTML
-st.write("## Notebook")
+st.write(" ")
+st.write(" ")
+st.write(" ")
+st.write("## Notebook d'analyses et de comparaison des modélisations")
 with open("projet_9_dashboard.html", "r", encoding="utf-8") as f:
     html_content = f.read()
 components.html(html_content, height=800, scrolling=True)

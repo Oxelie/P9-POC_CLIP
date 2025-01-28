@@ -69,7 +69,9 @@ if article_index is not None:
     selected_article = data[data['product_name'] == article_index].iloc[0]  
     image_path = selected_article['reshaped_image_path']
     description = selected_article['description']
-    st.image(Image.open(image_path), caption="Image sélectionnée")
+    image = Image.open(image_path)
+    # Afficher l'image avec une taille réduite
+    st.image(image, caption="Image sélectionnée", width=300)  
     st.write(f"Description : n\'{description}'")
 
     # Bouton pour faire la prédiction

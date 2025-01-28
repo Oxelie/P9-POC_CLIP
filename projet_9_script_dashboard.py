@@ -27,7 +27,13 @@ max_length = 77
 model.context_length = max_length
 
 # Charger les données
-data_final = pd.read_csv("streamlit_dataset.csv")  
+data = pd.read_csv("streamlit_dataset.csv")  
+
+# dictionnaire de correspondance entre les catégories et les labels
+label_to_category= {}
+for label in data.label.values :
+    label_to_category[label] = data[data.label == label].categ_0.values[0]
+    
 
 # Charger le classificateur entraîné
 classifier = joblib.load("clip_classif_model_a.pkl")  
@@ -55,31 +61,32 @@ def predict(image_path, description):
 st.title("Dashboard de Prédiction CLIP")
 
 # Sélection de l'article
-article_options = data_final['product_name'].tolist()  
+article_options = data['product_name'].tolist()  
 article_index = st.selectbox("Sélectionnez un article", options=article_options)
 
 # Afficher l'image et la description correspondantes
 if article_index is not None:
-    selected_article = data_final[data_final['product_name'] == article_index].iloc[0]  
+    selected_article = data[data['product_name'] == article_index].iloc[0]  
     image_path = selected_article['reshaped_image_path']
     description = selected_article['description']
     st.image(Image.open(image_path), caption="Image sélectionnée")
-    st.write(f"Description : {description}")
+    st.write(f"Description : n\'{description}'")
 
     # Bouton pour faire la prédiction
-    if st.button("Prédire"):
+    if st.button("Prédire la catégorie"):
         prediction, duration = predict(image_path, description)
-        st.write(f"Catégorie prédite : {prediction}")
+        pred_category = label_to_category[prediction]
+        st.write(f"Catégorie prédite :  n\'{pred_category}'")
         minutes, seconds = divmod(duration, 60)
         duration_str = f"{int(minutes)} min {int(seconds)} sec"
         st.write(f"Temps de calcul : {duration_str}")
         
 
 # # Prétraiter les images et les descriptions
-# images = [preprocess(Image.open(image_path)) for image_path in data_final['reshaped_image_path']] # colonne à modfier ?
+# images = [preprocess(Image.open(image_path)) for image_path in data['reshaped_image_path']] # colonne à modfier ?
 # max_length = 77
 # model.context_length = max_length
-# texts = clip.tokenize(data_final['description'], context_length=model.context_length, truncate=True).squeeze(0)
+# texts = clip.tokenize(data['description'], context_length=model.context_length, truncate=True).squeeze(0)
 
 # # Empiler les images en un seul tenseur
 # image_input = torch.stack(images).to(device)
@@ -138,7 +145,7 @@ if article_index is not None:
 # st.title("Dashboard de Prédiction CLIP")
 
 # # Sélection de l'image
-# image_path = st.selectbox("Sélectionnez une image", data_final['reshaped_image_path'].tolist())
+# image_path = st.selectbox("Sélectionnez une image", data['reshaped_image_path'].tolist())
 
 # # Saisie de la description
 # description = st.text_input("Entrez une description")

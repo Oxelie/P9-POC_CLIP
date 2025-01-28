@@ -9,6 +9,7 @@ from PIL import Image
 from sklearn.linear_model import LogisticRegression
 import streamlit as st
 import joblib
+from streamlit_jupyter import st_jupyter
 
 # Configuration de la page
 st.set_page_config(page_title="Dashboard de Classification Mutlimodale avec CLIP", layout="wide")
@@ -83,7 +84,7 @@ st.markdown(
 
 # Sélection de l'article
 article_options = data['product_name'].tolist()  
-article_index = st.selectbox("**Sélectionnez un article**", options=article_options)
+article_index = st.selectbox("**Sélectionnez un article parmi une sélection aléatoire de 4 produits par catégorie :**", options=article_options)
 
 # Afficher l'image et la description correspondantes
 if article_index is not None:
@@ -111,6 +112,11 @@ if article_index is not None:
         duration_str = f"{int(minutes)} min {int(seconds)} sec"
         st.write(f'<p style="font-size:15px; font-style:italic;">Temps de calcul de la prédiction : {duration_str}</p>', unsafe_allow_html=True)
         
+# Afficher le contenu du notebook
+st.write("## Notebook")
+st_jupyter("projet_9_dashboard.ipynb")
+
+
 
 # # Prétraiter les images et les descriptions
 # images = [preprocess(Image.open(image_path)) for image_path in data['reshaped_image_path']] # colonne à modfier ?

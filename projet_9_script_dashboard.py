@@ -10,6 +10,8 @@ from sklearn.linear_model import LogisticRegression
 import streamlit as st
 import joblib
 
+# Configuration de la page
+st.set_page_config(page_title="Dashboard de Classification Mutlimodale avec CLIP", layout="wide")
 
 # Fixer la seed pour la reproductibilité
 seed_value = 1802
@@ -62,8 +64,6 @@ def predict(image_path, description):
     duration = end_time - start_time
     return prediction[0], duration
 
-# Configuration de la page
-st.set_page_config(page_title="Dashboard de Classification Mutlimodale avec CLIP", layout="wide")
 
 # Interface utilisateur avec Streamlit
 st.title("Dashboard de Classification Mutlimodale avec CLIP")

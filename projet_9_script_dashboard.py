@@ -72,7 +72,7 @@ st.markdown(
     """
     <style>
     .stSelectbox label {
-        font-size: 40px;
+        font-size: 50px;
         font-weight: bold;
         font-style: italic;
     }

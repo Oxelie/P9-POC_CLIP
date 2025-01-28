@@ -85,7 +85,7 @@ if article_index is not None:
     st.write(f"{description}")
 
     # Bouton pour faire la prédiction
-    st.write(f"Prédire la catégorie avec l'image et la description de l'article en utilisant CLIP")
+    st.write(f"**Prédire la catégorie avec l'image et la description de l'article en utilisant CLIP**")
     if st.button("Prédire la catégorie"):
         prediction, duration = predict(image_path, description)
         pred_category = label_to_category[prediction]

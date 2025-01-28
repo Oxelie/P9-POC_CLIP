@@ -6,7 +6,4 @@ pillow
 scikit-learn
 streamlit
 joblib
-os
-random
-time
 streamlit

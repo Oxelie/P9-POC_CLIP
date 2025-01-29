@@ -84,7 +84,7 @@ st.markdown(
 
 # Sélection de l'article
 article_options = data['product_name'].tolist()  
-article_index = st.selectbox("**Sélectionnez un article parmi une sélection aléatoire de 4 produits par catégorie :**", options=article_options)
+article_index = st.selectbox("**Sélectionnez un article parmi une sélection aléatoire :**", options=article_options)
 
 # Afficher l'image et la description correspondantes
 if article_index is not None:

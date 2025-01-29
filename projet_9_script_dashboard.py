@@ -116,7 +116,7 @@ if article_index is not None:
 st.write(" ")
 st.write(" ")
 st.write(" ")
-st.write("## Notebook d'analyses et de comparaison des modélisations")
+st.write("### Notebook d'analyses et de comparaison des modélisations")
 with open("projet_9_test_CLIP.html", "r", encoding="utf-8") as f:
     html_content = f.read()
 components.html(html_content, height=800, scrolling=True)

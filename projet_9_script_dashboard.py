@@ -1,33 +1,10 @@
-import os
-import random
-import time
-import numpy as np
 import pandas as pd
-import torch
-import clip
 from PIL import Image
-from sklearn.linear_model import LogisticRegression
 import streamlit as st
-import joblib
-import streamlit.components.v1 as components
 
 # Configuration de la page
 st.set_page_config(page_title="Dashboard de Classification Mutlimodale avec CLIP", layout="wide")
 
-# Fixer la seed pour la reproductibilité
-seed_value = 1802
-os.environ['PYTHONHASHSEED'] = str(seed_value)
-random.seed(seed_value)
-np.random.seed(seed_value)
-torch.manual_seed(seed_value)
-torch.backends.cudnn.deterministic = True
-torch.backends.cudnn.benchmark = False
-
-# Charger le modèle CLIP et le preprocess
-device = "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device)
-max_length = 77
-model.context_length = max_length
 
 @st.cache_data
 def load_data():
@@ -36,38 +13,9 @@ def load_data():
 
 data = load_data()
 
-# dictionnaire de correspondance entre les catégories et les labels
-label_to_category= {}
-for label in data.label.values :
-    label_to_category[label] = data[data.label == label].categ_0.values[0]
-    
-
-# Charger le classificateur entraîné
-classifier = joblib.load("clip_classif_model_a.pkl")  
-
-@st.cache_data
-# Fonction pour faire des prédictions
-def predict(image_path, description):
-    start_time = time.time()
-    image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
-    text = clip.tokenize([description], context_length=model.context_length, truncate=True).to(device)
-
-    with torch.no_grad():
-        image_features = model.encode_image(image)
-        text_features = model.encode_text(text)
-
-    image_features /= image_features.norm(dim=-1, keepdim=True)
-    text_features /= text_features.norm(dim=-1, keepdim=True)
-
-    combined_features = torch.cat((image_features, text_features), dim=1).cpu().numpy()
-    prediction = classifier.predict(combined_features)
-    end_time = time.time()
-    duration = end_time - start_time
-    return prediction[0], duration
-
-
 # Interface utilisateur avec Streamlit
 st.title("Dashboard de Classification Mutlimodale avec CLIP")
+
 # Injecter du CSS pour modifier la police de la selectbox
 st.markdown(
     """
@@ -75,7 +23,7 @@ st.markdown(
     .stSelectbox label {
         font-size: 50px;
         font-weight: bold;
-        font-style: italic;
+        --font-style: italic;
     }
     </style>
     """,
@@ -83,43 +31,52 @@ st.markdown(
 )
 
 # Sélection de l'article
-article_options = data['product_name'].tolist()  
-article_index = st.selectbox("**Sélectionnez un article parmi une sélection aléatoire :**", options=article_options)
+article_names = data['product_name'].tolist()  
+article_index = st.selectbox("**Sélectionnez un article parmi une sélection aléatoire :**", options=article_names)
 
 # Afficher l'image et la description correspondantes
 if article_index is not None:
-    selected_article = data[data['product_name'] == article_index].iloc[0]  
+    selected_article = data[data['product_name'] == article_index].iloc[0]
     image_path = selected_article['reshaped_image_path']
     description = selected_article['description']
-    true_category = selected_article['categ_0']
+    true_category = selected_article['true_categ_0']
+    predicted_category = selected_article['predicted_category']
+    heatmap_image_path = selected_article['sampled_heatmap_image_path']
+    highlighted_prompt = selected_article['highlighted_prompt']
+
     # Afficher l'image avec une taille réduite
     image = Image.open(image_path)
     st.write(f"**Image de l'article sélectionné:**")
-    st.image(image, width=300)  
+    st.image(image, width=300)
     st.write(f"**Description de l'article sélectionné:**")
     st.write(f"{description}")
 
-    # Bouton pour faire la prédiction
+    # Bouton pour afficher la prédiction
     st.write(" ")
     st.write('<p style="font-size:22px; font-weight:bold;">Approche Multimodale avec CLIP</p>', unsafe_allow_html=True)
     st.write('<p style="font-size:16px;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
-    if st.button("**Prédiction**"):
-        prediction, duration = predict(image_path, description)
-        pred_category = label_to_category[prediction]
-        st.write(f"**Catégorie prédite : '{pred_category}'**")
-        st.write(f"Catégorie réelle :'{true_category}'")
-        minutes, seconds = divmod(duration, 60)
-        duration_str = f"{int(minutes)} min {int(seconds)} sec"
-        st.write(f'<p style="font-size:15px; font-style:italic;">Temps de calcul de la prédiction : {duration_str}</p>', unsafe_allow_html=True)
+    if st.button("**Afficher la Prédiction**"):
+        st.write(f"**Catégorie prédite : '{predicted_category}'**")
+        st.write(f"Catégorie réelle : '{true_category}'")
+
+        # Afficher l'image avec les features importances en heatmap
+        st.write(f"**Image avec les features importances en heatmap:**")
+        heatmap_image = Image.open(heatmap_image_path)
+        st.image(heatmap_image, width=300)
+
+        # Afficher le highlighted_prompt
+        st.write(f"**Texte avec les mots importants mis en évidence:**")
+        st.write(f"{highlighted_prompt}")
         
-# Afficher le contenu du notebook en HTML
-st.write(" ")
-st.write(" ")
-st.write(" ")
-st.write("### Notebook d'analyses et de comparaison des modélisations")
-with open("projet_9_test_CLIP.html", "r", encoding="utf-8") as f:
-    html_content = f.read()
-components.html(html_content, height=800, scrolling=True)
+              
+# # Afficher le contenu du notebook en HTML
+# st.write(" ")
+# st.write(" ")
+# st.write(" ")
+# st.write("### Notebook d'analyses et de comparaison des modélisations")
+# with open("projet_9_test_CLIP.html", "r", encoding="utf-8") as f:
+#     html_content = f.read()
+# components.html(html_content, height=800, scrolling=True)
 
 
 

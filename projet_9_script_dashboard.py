@@ -58,7 +58,7 @@ if article_index is not None:
     st.write('<p style="font-size:24px; font-weight:bold;">Approche Multimodale avec CLIP - Résultats</p>', unsafe_allow_html=True)
     st.write('<p style="font-size:18px;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
     if st.button("**Afficher la Prédiction**"):
-        st.write(f'<p style="font-size:18px;">Catégorie prédite : {predicted_category} </p>', unsafe_allow_html=True)
+        st.write(f'<p style="font-size:18px;font-weight:bold;">Catégorie prédite : {predicted_category} </p>', unsafe_allow_html=True)
         st.write(f'<p style="font-size:18px;">Catégorie réelle : {true_category} </p>', unsafe_allow_html=True)
         st.write(" ")
         

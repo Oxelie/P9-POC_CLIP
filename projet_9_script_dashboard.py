@@ -74,6 +74,16 @@ if article_index is not None:
     </div>
     """,
     unsafe_allow_html=True)
+    
+    st.markdown(
+        f"""
+        <div class="rounded-frame">
+            <p><strong>Image de l'article sélectionné:</strong></p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.image(image_path, width=300)
 
     st.write(f"**Description de l'article sélectionné:**")
     # st.write(f"{description}")

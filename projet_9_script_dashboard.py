@@ -73,7 +73,7 @@ if article_index is not None:
         # Afficher l'image du barplot
         st.write(f"**Barplot des probabilités des catégories:**")
         barplot_image = Image.open(barplot_image_path)
-        st.image(barplot_image, width=500)
+        st.image(barplot_image, width=700)
         
               
 # # Afficher le contenu du notebook en HTML

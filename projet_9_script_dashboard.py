@@ -20,7 +20,7 @@ st.markdown("""
             
                Ici, vous pourrez :
                - Choisir un article parmi une sélection aléatoire,
-               - Découvrir les résultats de la classification multimodale avec CLIP,
+               - Découvrir les résultats de la prédiction avec CLIP,
                - Analyser les décisions du modèle.
                """)
 
@@ -39,6 +39,8 @@ st.markdown(
 )
 
 # Sélection de l'article
+st.write(" ")
+st.write('<p style="font-size:24px; font-weight:bold;">Prédicitons avec CLIP</p>', unsafe_allow_html=True)
 article_names = data['product_name'].tolist()  
 article_index = st.selectbox("**Sélectionnez un article parmi une sélection aléatoire :**", options=article_names)
 
@@ -63,8 +65,8 @@ if article_index is not None:
 
     # Bouton pour afficher la prédiction
     st.write(" ")
-    st.write('<p style="font-size:24px; font-weight:bold;">Approche Multimodale avec CLIP - Résultats</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:18px;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:20px; font-weight:bold;">Résultats</p>', unsafe_allow_html=True)
+    st.write("Prédire la catégorie avec l\'image et la description de l\'article")
     if st.button("**Afficher la Prédiction**"):
         st.write(f'<p style="font-size:18px;font-weight:bold;">Catégorie prédite : {predicted_category} </p>', unsafe_allow_html=True)
         st.write(f'<p style="font-size:18px;">Catégorie réelle : {true_category} </p>', unsafe_allow_html=True)

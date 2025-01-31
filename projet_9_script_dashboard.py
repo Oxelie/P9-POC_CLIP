@@ -63,7 +63,6 @@ if article_index is not None:
 
     # Afficher l'image avec une taille réduite
     image = Image.open(image_path)
-    st.markdown('<div class="rounded-frame">', unsafe_allow_html=True)
     st.write(f"**Image de l'article sélectionné:**")
     # st.image(image, width=300)
     # st.markdown('</div>', unsafe_allow_html=True)
@@ -106,7 +105,14 @@ if article_index is not None:
 
         # Afficher le highlighted_prompt
         st.write('<p style="font-size:18px;font-weight:bold;">Features importance sur le texte (mots en gras) :</p>', unsafe_allow_html=True)
-        st.write(f"{highlighted_prompt}")
+        st.markdown(
+        f"""
+        <div class="rounded-frame">
+            <p>{highlighted_prompt}</p>
+        </div>
+        """,
+        unsafe_allow_html=True)
+        #st.write(f"{highlighted_prompt}")
         st.write(" ")
         
         # Afficher l'image du barplot

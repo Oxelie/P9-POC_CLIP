@@ -55,25 +55,32 @@ if article_index is not None:
 
     # Bouton pour afficher la prédiction
     st.write(" ")
-    st.write('<p style="font-size:22px; font-weight:bold;">Approche Multimodale avec CLIP</p>', unsafe_allow_html=True)
-    st.write('<p style="font-size:16px;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:24px; font-weight:bold;">Approche Multimodale avec CLIP - Résultats</p>', unsafe_allow_html=True)
+    st.write('<p style="font-size:18px;">Prédire la catégorie avec l\'image et la description de l\'article</p>', unsafe_allow_html=True)
     if st.button("**Afficher la Prédiction**"):
-        st.write(f"**Catégorie prédite : '{predicted_category}'**")
-        st.write(f"Catégorie réelle : '{true_category}'")
+        st.write(f'<p style="font-size:18px;">Catégorie prédite : {predicted_category} </p>', unsafe_allow_html=True)
+        st.write(f'<p style="font-size:18px;">Catégorie réelle : {true_category} </p>', unsafe_allow_html=True)
+        st.write(" ")
+        
+        st.write('<p style="font-size:22px;font-weight:bold;">CLIP - Explications de la décision</p>', unsafe_allow_html=True)
 
         # Afficher l'image avec les features importances en heatmap
-        st.write(f"**Image avec les features importances en heatmap:**")
+        st.write('<p style="font-size:18px;">Features importances sur l\'image :</p>', unsafe_allow_html=True)
         heatmap_image = Image.open(heatmap_image_path)
         st.image(heatmap_image, width=300)
+        st.write(" ")
 
         # Afficher le highlighted_prompt
-        st.write(f"**Texte avec les mots importants mis en évidence:**")
+        st.write('<p style="font-size:18px;">Features importance sur le texte (mots en gras) :</p>', unsafe_allow_html=True)
         st.write(f"{highlighted_prompt}")
+        st.write(" ")
         
         # Afficher l'image du barplot
         st.write(f"**Barplot des probabilités des catégories:**")
         barplot_image = Image.open(barplot_image_path)
         st.image(barplot_image, width=700)
+        st.write(" ")
+        st.write(" ")
         
               
 # # Afficher le contenu du notebook en HTML

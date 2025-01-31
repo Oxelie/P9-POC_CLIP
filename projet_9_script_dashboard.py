@@ -65,8 +65,16 @@ if article_index is not None:
     image = Image.open(image_path)
     st.markdown('<div class="rounded-frame">', unsafe_allow_html=True)
     st.write(f"**Image de l'article sélectionné:**")
-    st.image(image, width=300)
-    st.markdown('</div>', unsafe_allow_html=True)
+    # st.image(image, width=300)
+    # st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown(
+    f"""
+    <div class="rounded-frame">
+        <p><strong>Image de l'article sélectionné:</strong></p>
+        <img src="{image_path}" width="300">
+    </div>
+    """,
+    unsafe_allow_html=True)
 
     st.markdown('<div class="rounded-frame">', unsafe_allow_html=True)
     st.write(f"**Description de l'article sélectionné:**")

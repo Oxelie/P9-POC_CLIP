@@ -17,6 +17,7 @@ data = load_data()
 st.title("Dashboard de Classification Mutlimodale avec CLIP")
 st.markdown("""
             Bienvenue sur ce tableau de bord intéractif ! 
+            
                Ici, vous pourrez :
                - Choisir un article parmi une sélection aléatoire,
                - Découvrir les résultats de la classification multimodale avec CLIP,

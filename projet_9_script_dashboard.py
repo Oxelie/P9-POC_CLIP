@@ -65,18 +65,18 @@ if article_index is not None:
         st.write('<p style="font-size:22px;font-weight:bold;">CLIP - Explications de la décision</p>', unsafe_allow_html=True)
 
         # Afficher l'image avec les features importances en heatmap
-        st.write('<p style="font-size:18px;">Features importances sur l\'image :</p>', unsafe_allow_html=True)
+        st.write('<p style="font-size:18px;font-weight:bold;">Features importances sur l\'image :</p>', unsafe_allow_html=True)
         heatmap_image = Image.open(heatmap_image_path)
         st.image(heatmap_image, width=300)
         st.write(" ")
 
         # Afficher le highlighted_prompt
-        st.write('<p style="font-size:18px;">Features importance sur le texte (mots en gras) :</p>', unsafe_allow_html=True)
+        st.write('<p style="font-size:18px;font-weight:bold;">Features importance sur le texte (mots en gras) :</p>', unsafe_allow_html=True)
         st.write(f"{highlighted_prompt}")
         st.write(" ")
         
         # Afficher l'image du barplot
-        st.write(f"**Barplot des probabilités des catégories:**")
+        st.write('<p style="font-size:18px;font-weight:bold;">Barplot des probabilités des catégories :</p>', unsafe_allow_html=True)
         barplot_image = Image.open(barplot_image_path)
         st.image(barplot_image, width=700)
         st.write(" ")

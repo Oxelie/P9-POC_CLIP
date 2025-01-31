@@ -23,20 +23,25 @@ st.markdown("""
                - Découvrir les résultats de la prédiction avec CLIP,
                - Analyser les décisions du modèle.
                """)
+# mise en forme du texte avec CSS
+st.markdown(
+    """
+    <style>
+    .stSelectbox label {
+        font-size: 50px;
+        font-weight: bold;
+        font-style: italic;
+    }
+    .rounded-frame {
+        border: 2px solid #4CAF50;
+        border-radius: 15px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True)
 
-# # Injecter du CSS pour modifier la police de la selectbox
-# st.markdown(
-#     """
-#     <style>
-#     .stSelectbox label {
-#         font-size: 50px;
-#         font-weight: bold;
-#         --font-style: italic;
-#     }
-#     </style>
-#     """,
-#     unsafe_allow_html=True
-# )
 
 # Sélection de l'article
 st.write(" ")
@@ -58,29 +63,15 @@ if article_index is not None:
 
     # Afficher l'image avec une taille réduite
     image = Image.open(image_path)
+    st.markdown('<div class="rounded-frame">', unsafe_allow_html=True)
     st.write(f"**Image de l'article sélectionné:**")
     st.image(image, width=300)
-    st.write(" ")
-    st.write(f"**Description de l'article sélectionné:**")
-    st.markdown(
-    """
-    <style>
-    .stSelectbox label {
-        font-size: 50px;
-        font-weight: bold;
-        font-style: italic;
-    }
-    .rounded-frame {
-        border: 2px solid #4CAF50;
-        border-radius: 15px;
-        padding: 10px;
-        margin: 10px 0;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
+    st.markdown('<div class="rounded-frame">', unsafe_allow_html=True)
+    st.write(f"**Description de l'article sélectionné:**")
     st.write(f"{description}")
+    st.markdown('</div>', unsafe_allow_html=True)
 
     # Bouton pour afficher la prédiction
     st.write(" ")

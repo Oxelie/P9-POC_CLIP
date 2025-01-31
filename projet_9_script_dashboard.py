@@ -9,7 +9,7 @@ st.set_page_config(page_title="Dashboard de Classification Mutlimodale avec CLIP
 @st.cache_data
 def load_data():
     # Charger les données
-    return pd.read_csv("streamlit_dataset.csv")
+    return pd.read_csv("dashboard_results.csv")
 
 data = load_data()
 

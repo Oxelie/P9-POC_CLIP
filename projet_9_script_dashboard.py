@@ -15,6 +15,11 @@ data = load_data()
 
 # Interface utilisateur avec Streamlit
 st.title("Dashboard de Classification Mutlimodale avec CLIP")
+st.st.markdown(f"Bienvenue sur ce tableau de bord intéractif ! 
+               Ici, vous pourrez :
+               - Choisir un article parmi une sélection aléatoire,
+               - Découvrir les résultats de la classification multimodale avec CLIP,
+               - Analyser les décisions du modèle.")
 
 # Injecter du CSS pour modifier la police de la selectbox
 st.markdown(

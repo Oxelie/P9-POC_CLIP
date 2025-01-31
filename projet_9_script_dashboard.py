@@ -24,19 +24,19 @@ st.markdown("""
                - Analyser les décisions du modèle.
                """)
 
-# Injecter du CSS pour modifier la police de la selectbox
-st.markdown(
-    """
-    <style>
-    .stSelectbox label {
-        font-size: 50px;
-        font-weight: bold;
-        --font-style: italic;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# # Injecter du CSS pour modifier la police de la selectbox
+# st.markdown(
+#     """
+#     <style>
+#     .stSelectbox label {
+#         font-size: 50px;
+#         font-weight: bold;
+#         --font-style: italic;
+#     }
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
 
 # Sélection de l'article
 st.write(" ")

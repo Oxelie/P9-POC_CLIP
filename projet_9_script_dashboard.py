@@ -9,7 +9,7 @@ st.set_page_config(page_title="Dashboard de Classification Mutlimodale avec CLIP
 @st.cache_data
 def load_data():
     # Charger les données
-    return pd.read_csv("dashboard_results.csv")
+    return pd.read_csv("dashboard_results_with_barplots.csv")
 
 data = load_data()
 
@@ -43,6 +43,8 @@ if article_index is not None:
     predicted_category = selected_article['predicted_category']
     heatmap_image_path = selected_article['sampled_heatmap_image_path']
     highlighted_prompt = selected_article['highlighted_prompt']
+    barplot_image_path = selected_article['barplot_image_path']
+
 
     # Afficher l'image avec une taille réduite
     image = Image.open(image_path)
@@ -67,6 +69,11 @@ if article_index is not None:
         # Afficher le highlighted_prompt
         st.write(f"**Texte avec les mots importants mis en évidence:**")
         st.write(f"{highlighted_prompt}")
+        
+        # Afficher l'image du barplot
+        st.write(f"**Barplot des probabilités des catégories:**")
+        barplot_image = Image.open(barplot_image_path)
+        st.image(barplot_image, width=300)
         
               
 # # Afficher le contenu du notebook en HTML

@@ -40,7 +40,7 @@ st.markdown("""
 
 # Sélection de l'article
 st.write(" ")
-st.write('<p style="font-size:24px; font-weight:bold;">Prédicitons avec CLIP</p>', unsafe_allow_html=True)
+st.write('<p style="font-size:24px; font-weight:bold;">Prédictions avec CLIP</p>', unsafe_allow_html=True)
 article_names = data['product_name'].tolist()  
 article_index = st.selectbox("**Sélectionnez un article parmi une sélection aléatoire :**", options=article_names)
 
@@ -62,6 +62,24 @@ if article_index is not None:
     st.image(image, width=300)
     st.write(" ")
     st.write(f"**Description de l'article sélectionné:**")
+    st.markdown(
+    """
+    <style>
+    .stSelectbox label {
+        font-size: 50px;
+        font-weight: bold;
+        font-style: italic;
+    }
+    .rounded-frame {
+        border: 2px solid #4CAF50;
+        border-radius: 15px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True)
+
     st.write(f"{description}")
 
     # Bouton pour afficher la prédiction

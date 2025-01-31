@@ -60,6 +60,7 @@ if article_index is not None:
     image = Image.open(image_path)
     st.write(f"**Image de l'article sélectionné:**")
     st.image(image, width=300)
+    st.write(" ")
     st.write(f"**Description de l'article sélectionné:**")
     st.write(f"{description}")
 

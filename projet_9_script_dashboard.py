@@ -33,7 +33,7 @@ st.markdown(
         font-style: italic;
     }
     .rounded-frame {
-        border: 2px solid #4CAF50;
+        border: 2px solid #000000;
         border-radius: 15px;
         padding: 10px;
         margin: 10px 0;
@@ -76,19 +76,16 @@ if article_index is not None:
     """,
     unsafe_allow_html=True)
 
-    st.markdown('<div class="rounded-frame">', unsafe_allow_html=True)
     st.write(f"**Description de l'article sélectionné:**")
     # st.write(f"{description}")
     # st.markdown('</div>', unsafe_allow_html=True)
     st.markdown(
     f"""
     <div class="rounded-frame">
-        <p><strong>Description de l'article sélectionné:</strong></p>
         <p>{description}</p>
     </div>
     """,
-    unsafe_allow_html=True
-)
+    unsafe_allow_html=True)
 
     # Bouton pour afficher la prédiction
     st.write(" ")

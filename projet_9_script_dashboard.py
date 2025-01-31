@@ -78,8 +78,17 @@ if article_index is not None:
 
     st.markdown('<div class="rounded-frame">', unsafe_allow_html=True)
     st.write(f"**Description de l'article sélectionné:**")
-    st.write(f"{description}")
-    st.markdown('</div>', unsafe_allow_html=True)
+    # st.write(f"{description}")
+    # st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown(
+    f"""
+    <div class="rounded-frame">
+        <p><strong>Description de l'article sélectionné:</strong></p>
+        <p>{description}</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
     # Bouton pour afficher la prédiction
     st.write(" ")
